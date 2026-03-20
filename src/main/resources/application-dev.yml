@@ -24,6 +24,16 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: true
 
+# Secrets — fallbacks apenas para DEV local (sobrescrever via variáveis de ambiente)
+# NUNCA usar estes valores em produção
+fmp:
+  api:
+    key: ${FMP_API_KEY:CONFIGURE_FMP_API_KEY_NO_ARQUIVO_.env}
+
+jwt:
+  secret: ${JWT_SECRET:dev-secret-apenas-para-desenvolvimento-local-minimo-64-caracteres-aqui}
+  expiration: ${JWT_EXPIRATION:86400000}
+
 # Logs — nível DEBUG para desenvolvimento
 logging:
   level:

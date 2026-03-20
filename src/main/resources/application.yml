@@ -1,0 +1,95 @@
+# =============================================================
+# Pilot Broker Backend — Configurações Comuns (todos os perfis)
+# =============================================================
+
+spring:
+  application:
+    name: pilot-broker-backend
+
+  # Perfil ativo padrão (sobrescrito por variável de ambiente em PROD)
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  # Serialização JSON
+  jackson:
+    time-zone: America/Sao_Paulo
+    locale: pt_BR
+    date-format: yyyy-MM-dd'T'HH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
+
+  # JPA — configurações comuns
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: America/Sao_Paulo
+        format_sql: true
+
+  # RabbitMQ
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+# =============================================================
+# Servidor
+# =============================================================
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# =============================================================
+# API Externa — Financial Modeling Prep
+# NUNCA hardcodar a API key — usar variável de ambiente FMP_API_KEY
+# =============================================================
+fmp:
+  api:
+    key: ${FMP_API_KEY}
+    base-url: https://financialmodelingprep.com/api/v3
+
+# =============================================================
+# Segurança — JWT
+# NUNCA hardcodar o secret — usar variável de ambiente JWT_SECRET
+# =============================================================
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:86400000}   # 24 horas em ms (padrão)
+
+# =============================================================
+# Mensageria — Filas RabbitMQ
+# =============================================================
+broker:
+  queues:
+    cotacao-request: cotacao.request
+    cotacao-response: cotacao.response
+
+# =============================================================
+# Documentação — Swagger / OpenAPI
+# =============================================================
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+
+# =============================================================
+# Actuator
+# =============================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized

@@ -1,0 +1,31 @@
+# =============================================
+# Pilot Broker Backend — .gitignore
+# =============================================
+
+# Maven
+target/
+*.class
+*.jar
+*.war
+
+# Variáveis de ambiente — NUNCA commitar
+.env
+*.env.local
+
+# Configuração de produção — NUNCA commitar
+application-prod-secrets.yml
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Spring Boot
+spring-shell.log

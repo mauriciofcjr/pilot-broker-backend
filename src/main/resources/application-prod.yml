@@ -1,0 +1,49 @@
+# =============================================================
+# Pilot Broker Backend — Perfil PROD
+# Todas as propriedades sensíveis VÊM de variáveis de ambiente
+# =============================================================
+
+spring:
+
+  # Banco de dados — PROD (via env vars)
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # JPA — PROD
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+  # Flyway — migrations
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+    validate-on-migrate: true
+
+# Logs — apenas INFO em produção
+logging:
+  level:
+    com.pilotbroker: INFO
+    org.springframework: WARN
+    root: WARN
+
+# Actuator — limitado em PROD
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never

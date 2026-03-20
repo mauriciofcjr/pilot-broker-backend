@@ -122,4 +122,3 @@ com.pilotbroker.backend/
 | `develop` | DEV |
 | `feature/*` | Feature em desenvolvimento |
 
-## Criação da Branch Develop

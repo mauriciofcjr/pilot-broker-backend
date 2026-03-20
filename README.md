@@ -121,3 +121,5 @@ com.pilotbroker.backend/
 | `main` | PROD |
 | `develop` | DEV |
 | `feature/*` | Feature em desenvolvimento |
+
+## Criação da Branch Develop

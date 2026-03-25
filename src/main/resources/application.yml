@@ -39,6 +39,9 @@ fmp:
     key: ${FMP_API_KEY:placeholder}
     base-url: https://financialmodelingprep.com/stable
 
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS}
+
 jwt:
   secret: ${JWT_SECRET}
   

@@ -40,7 +40,7 @@ fmp:
     base-url: https://financialmodelingprep.com/stable
 
 jwt:
-  secret: ${JWT_SECRET:FBdmjnp12uYe52lkfpO22PofsrWTbmXxcfjAFsNruQC}
+  secret: ${JWT_SECRET}
   
   expiration: 86400000
 

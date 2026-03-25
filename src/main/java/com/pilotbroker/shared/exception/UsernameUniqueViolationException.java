@@ -1,4 +1,4 @@
-package com.pilotbroker.exception;
+package com.pilotbroker.shared.exception;
 
 public class UsernameUniqueViolationException extends RuntimeException {
     public UsernameUniqueViolationException(String username) {

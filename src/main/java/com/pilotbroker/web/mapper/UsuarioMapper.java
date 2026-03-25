@@ -3,33 +3,32 @@ package com.pilotbroker.web.mapper;
 import com.pilotbroker.model.Usuario;
 import com.pilotbroker.web.dto.usuario.UsuarioCreateDto;
 import com.pilotbroker.web.dto.usuario.UsuarioResponseDto;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@RequiredArgsConstructor
 public class UsuarioMapper {
 
-    public static Usuario toUsuario(UsuarioCreateDto dto) {
-        return new ModelMapper().map(dto, Usuario.class);
+    private final ModelMapper modelMapper;
+
+    public Usuario toUsuario(UsuarioCreateDto dto) {
+        return modelMapper.map(dto, Usuario.class);
     }
 
-    public static UsuarioResponseDto toDto(Usuario usuario) {
-        String role = usuario.getRole().name().substring("ROLE_".length());
-        PropertyMap<Usuario, UsuarioResponseDto> props =
-                new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        map().setRole(role);
-                    }
-                };
-        ModelMapper mapper = new ModelMapper();
-        mapper.addMappings(props);
-        return mapper.map(usuario, UsuarioResponseDto.class);
+    public UsuarioResponseDto toDto(Usuario usuario) {
+        return new UsuarioResponseDto(
+                usuario.getId(),
+                usuario.getUsername(),
+                usuario.getRole().name().substring("ROLE_".length())
+        );
     }
 
-    public static List<UsuarioResponseDto> toListDto(List<Usuario> usuarios) {
-        return usuarios.stream().map(UsuarioMapper::toDto).collect(Collectors.toList());
+    public List<UsuarioResponseDto> toListDto(List<Usuario> usuarios) {
+        return usuarios.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

@@ -1,7 +1,7 @@
 package com.pilotbroker.shared.exception;
 
-import com.pilotbroker.exception.PasswordInvalidException;
-import com.pilotbroker.exception.UsernameUniqueViolationException;
+import com.pilotbroker.shared.exception.PasswordInvalidException;
+import com.pilotbroker.shared.exception.UsernameUniqueViolationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

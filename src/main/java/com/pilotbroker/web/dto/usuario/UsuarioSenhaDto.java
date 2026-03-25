@@ -18,6 +18,6 @@ public class UsuarioSenhaDto {
     private String novaSenha;
 
     @NotBlank
-    @Size(min = 6, max = 6)
+    @Size(min = 6, max = 6, message = "Confirmação de senha deve ter exatamente 6 caracteres")
     private String confirmaSenha;
 }

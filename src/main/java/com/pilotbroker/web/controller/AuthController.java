@@ -33,6 +33,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final UsuarioService usuarioService;
+    private final UsuarioMapper usuarioMapper;
 
     @Operation(summary = "Realizar login",
                responses = {
@@ -49,9 +50,8 @@ public class AuthController {
     @Operation(summary = "Cadastrar novo usuário")
     @PostMapping("/register")
     public ResponseEntity<UsuarioResponseDto> register(@Valid @RequestBody UsuarioCreateDto dto) {
-        Usuario usuario = UsuarioMapper.toUsuario(dto);
-        Usuario salvo = usuarioService.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(salvo));
+        Usuario salvo = usuarioService.salvar(usuarioMapper.toUsuario(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioMapper.toDto(salvo));
     }
 
 }

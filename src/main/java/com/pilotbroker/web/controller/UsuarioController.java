@@ -7,7 +7,9 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pilotbroker.model.Usuario;
 import com.pilotbroker.service.UsuarioService;
 import com.pilotbroker.web.dto.usuario.UsuarioResponseDto;
+import com.pilotbroker.web.dto.usuario.UsuarioRoleDto;
 import com.pilotbroker.web.dto.usuario.UsuarioSenhaDto;
 import com.pilotbroker.web.mapper.UsuarioMapper;
 
@@ -61,6 +64,23 @@ public class UsuarioController {
         verificarAcesso(usuario, userDetails);
         usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Excluir usuário por ID (somente ADMIN)")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        usuarioService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Alterar role do usuário (somente ADMIN)")
+    @PatchMapping("/{id}/role")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UsuarioResponseDto> alterarRole(@PathVariable Long id,
+            @Valid @RequestBody UsuarioRoleDto dto) {
+        Usuario atualizado = usuarioService.editarRole(id, dto.getRole());
+        return ResponseEntity.ok(usuarioMapper.toDto(atualizado));
     }
 
     private void verificarAcesso(Usuario usuario, UserDetails userDetails) {

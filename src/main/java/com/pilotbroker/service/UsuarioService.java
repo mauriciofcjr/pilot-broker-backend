@@ -51,6 +51,19 @@ public class UsuarioService {
     }
 
     @Transactional
+    public void excluir(Long id) {
+        Usuario usuario = buscarPorId(id);
+        usuarioRepository.delete(usuario);
+    }
+
+    @Transactional
+    public Usuario editarRole(Long id, Usuario.Role novaRole) {
+        Usuario usuario = buscarPorId(id);
+        usuario.setRole(novaRole);
+        return usuarioRepository.save(usuario);
+    }
+
+    @Transactional
     public void editarSenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
         if (!novaSenha.equals(confirmaSenha)) {
             throw new PasswordInvalidException("As novas senhas não coincidem.");

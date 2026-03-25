@@ -100,4 +100,42 @@ class UsuarioServiceTest {
         assertThatThrownBy(() -> usuarioService.editarSenha(1L, "123456", "nova1", "nova2"))
                 .isInstanceOf(PasswordInvalidException.class);
     }
+
+    @Test
+    void excluir_DeveRemoverUsuario_QuandoIdExiste() {
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuarioValido));
+
+        usuarioService.excluir(1L);
+
+        verify(usuarioRepository).delete(usuarioValido);
+    }
+
+    @Test
+    void excluir_DeveLancarExcecao_QuandoIdNaoExiste() {
+        when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> usuarioService.excluir(999L))
+                .isInstanceOf(jakarta.persistence.EntityNotFoundException.class)
+                .hasMessageContaining("999");
+    }
+
+    @Test
+    void editarRole_DeveAlterarRole_QuandoIdExiste() {
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuarioValido));
+        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioValido);
+
+        Usuario resultado = usuarioService.editarRole(1L, Usuario.Role.ROLE_ADMIN);
+
+        verify(usuarioRepository).save(any(Usuario.class));
+        assertThat(resultado).isNotNull();
+    }
+
+    @Test
+    void editarRole_DeveLancarExcecao_QuandoIdNaoExiste() {
+        when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> usuarioService.editarRole(999L, Usuario.Role.ROLE_ADMIN))
+                .isInstanceOf(jakarta.persistence.EntityNotFoundException.class)
+                .hasMessageContaining("999");
+    }
 }

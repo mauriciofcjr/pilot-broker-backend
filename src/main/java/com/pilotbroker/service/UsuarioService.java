@@ -1,7 +1,7 @@
 package com.pilotbroker.service;
 
-import com.pilotbroker.exception.PasswordInvalidException;
-import com.pilotbroker.exception.UsernameUniqueViolationException;
+import com.pilotbroker.shared.exception.PasswordInvalidException;
+import com.pilotbroker.shared.exception.UsernameUniqueViolationException;
 import com.pilotbroker.model.Usuario;
 import com.pilotbroker.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;

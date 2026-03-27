@@ -18,6 +18,9 @@ spring:
     exclude:
       - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
 
+cors:
+  allowed-origins: http://localhost:4200
+
 jwt:
   secret: FBdmjnp12uYe52lkfpO22PofsrWTbmXxcfjAFsNruQC
   expiration: 86400000

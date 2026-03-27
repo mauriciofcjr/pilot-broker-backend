@@ -22,8 +22,6 @@ spring:
     baseline-on-migrate: true
   cache:
     type: caffeine
-    caffeine:
-      spec: maximumSize=500,expireAfterWrite=60s
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
@@ -38,6 +36,9 @@ fmp:
   api:
     key: ${FMP_API_KEY:placeholder}
     base-url: https://financialmodelingprep.com/stable
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS}
 
 jwt:
   secret: ${JWT_SECRET}

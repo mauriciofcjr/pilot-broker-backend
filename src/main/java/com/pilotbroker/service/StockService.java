@@ -80,12 +80,14 @@ public class StockService {
             var ratiosFuture  = executor.submit(() -> fmpGateway.fetchRatios(symbol));
             var scoresFuture  = executor.submit(() -> fmpGateway.fetchScores(symbol));
 
+            var ratios = ratiosFuture.get();
+            var scores = scoresFuture.get();
             return new FundamentalsDto(
                 nullSafeList(incomeFuture.get()),
                 nullSafeList(balanceFuture.get()),
                 nullSafeList(cashFuture.get()),
-                ratiosFuture.get() != null ? ratiosFuture.get() : Map.of(),
-                scoresFuture.get() != null ? scoresFuture.get() : Map.of()
+                ratios != null ? ratios : Map.of(),
+                scores != null ? scores : Map.of()
             );
         } catch (ExecutionException e) {
             throw new RuntimeException("Erro ao buscar fundamentals: " + symbol, e.getCause());

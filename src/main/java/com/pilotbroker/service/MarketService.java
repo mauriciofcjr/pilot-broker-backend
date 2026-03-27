@@ -1,5 +1,6 @@
 package com.pilotbroker.service;
 
+import com.pilotbroker.service.interfaces.FmpMarketGateway;
 import com.pilotbroker.web.dto.market.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

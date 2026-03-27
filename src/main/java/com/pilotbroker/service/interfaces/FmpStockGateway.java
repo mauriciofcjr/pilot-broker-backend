@@ -1,4 +1,4 @@
-package com.pilotbroker.service;
+package com.pilotbroker.service.interfaces;
 
 import java.util.List;
 import java.util.Map;

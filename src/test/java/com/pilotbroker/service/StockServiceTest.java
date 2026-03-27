@@ -1,5 +1,6 @@
 package com.pilotbroker.service;
 
+import com.pilotbroker.service.interfaces.FmpStockGateway;
 import com.pilotbroker.web.dto.stock.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

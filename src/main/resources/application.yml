@@ -22,8 +22,6 @@ spring:
     baseline-on-migrate: true
   cache:
     type: caffeine
-    caffeine:
-      spec: maximumSize=500,expireAfterWrite=60s
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}

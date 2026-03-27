@@ -9,6 +9,7 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 public class FundamentalsDto {
+    // Map<String, Object>: estrutura variável da FMP, passada diretamente ao frontend sem mapeamento tipado
     private List<Map<String, Object>> incomeStatement;
     private List<Map<String, Object>> balanceSheet;
     private List<Map<String, Object>> cashFlow;

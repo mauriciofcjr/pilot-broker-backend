@@ -1,6 +1,7 @@
 package com.pilotbroker.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pilotbroker.messaging.OrderProducer;
 import com.pilotbroker.model.Usuario;
 import com.pilotbroker.repository.UsuarioRepository;
 import com.pilotbroker.service.StockService;
@@ -34,6 +35,9 @@ public class StockControllerIT {
     @Autowired private ObjectMapper objectMapper;
     @Autowired private UsuarioRepository usuarioRepository;
     @Autowired private PasswordEncoder passwordEncoder;
+
+    @MockBean
+    private OrderProducer orderProducer;
 
     @MockBean
     private StockService stockService;

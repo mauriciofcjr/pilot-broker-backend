@@ -32,7 +32,7 @@ public class Order {
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
-    @Column(name = "preco", nullable = false)
+    @Column(name = "preco", nullable = false, columnDefinition = "decimal(15,2)")
     private Double preco;
 
     @Enumerated(EnumType.STRING)

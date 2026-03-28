@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -47,10 +48,12 @@ class OrderServiceTest {
         orderService.criarOrdem("user@test.com", dto);
 
         ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
-        verify(orderRepository).save(captor.capture());
-        assertThat(captor.getValue().getStatus()).isEqualTo(OrderStatus.PENDING);
 
-        verify(orderProducer).publicar(10L);
+        InOrder inOrder = inOrder(orderRepository, orderProducer);
+        inOrder.verify(orderRepository).save(captor.capture());
+        inOrder.verify(orderProducer).publicar(10L);
+
+        assertThat(captor.getValue().getStatus()).isEqualTo(OrderStatus.PENDING);
     }
 
     @Test

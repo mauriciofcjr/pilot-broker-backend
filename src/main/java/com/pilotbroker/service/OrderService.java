@@ -9,6 +9,7 @@ import com.pilotbroker.web.dto.trade.OrderListItemDto;
 import com.pilotbroker.web.dto.trade.OrderRequestDto;
 import com.pilotbroker.web.dto.trade.OrderResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -39,6 +41,7 @@ public class OrderService {
 
         Order saved = orderRepository.save(order);
         orderProducer.publicar(saved.getId());
+        log.info("Ordem id={} criada e publicada na fila", saved.getId());
 
         return new OrderResponseDto(saved.getId(), "PENDING", "Ordem recebida e em processamento");
     }

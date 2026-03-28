@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class OrderConsumer {
     private final OrderRepository orderRepository;
 
     @RabbitListener(queues = RabbitMqConfig.QUEUE)
+    @Transactional
     public void processar(Long orderId) {
         log.info("Processando ordem id={}", orderId);
         orderRepository.findById(orderId).ifPresentOrElse(order -> {
